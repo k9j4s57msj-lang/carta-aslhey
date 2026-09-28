@@ -1,0 +1,2 @@
+# carta-aslhey
+tqm amiga 
