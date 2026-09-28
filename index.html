@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Una Carta Mágica para Ashley ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #1f0d1a;
+      --pink-soft: #fce4ec;
+      --pink-light: #f8bbd0;
+      --pink-primary: #e91e63;
+      --pink-dark: #ad1457;
+      --gold: #d4af37;
+      --gold-light: #f9e79f;
+      --parchment: #fff9fb;
+      --ink: #3a1c28;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #2e1227 0%, #120510 100%);
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--ink);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Partículas de destellos mágicos */
+    #sparkles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ETAPA 1: SOBRE DE HOGWARTS EN ROSA */
+    #scene-envelope {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      perspective: 1000px;
+      transition: transform 0.3s ease;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    #scene-envelope:hover {
+      transform: translateY(-5px);
+    }
+
+    .envelope {
+      width: 320px;
+      height: 220px;
+      background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+      position: relative;
+      border-radius: 12px;
+      box-shadow: 0 18px 45px rgba(233, 30, 99, 0.35), 0 0 25px rgba(249, 231, 159, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-left: 160px solid #f06292;
+      border-bottom: 110px solid #ec407a;
+      border-top: 110px solid transparent;
+      border-right: 160px solid #f06292;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 120px solid #f48fb1;
+      transform-origin: top;
+      transition: transform 0.6s ease;
+      z-index: 2;
+    }
+
+    .seal {
+      width: 65px;
+      height: 65px;
+      background: radial-gradient(circle, #e91e63, #880e4f);
+      border-radius: 50%;
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      box-shadow: 0 4px 15px rgba(136, 14, 79, 0.6), 0 0 10px #f9e79f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 32px;
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+      animation: pulseGlow 2s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 10px rgba(233, 30, 99, 0.5); }
+      100% { box-shadow: 0 0 25px rgba(249, 231, 159, 0.9), 0 0 15px #e91e63; }
+    }
+
+    .envelope-tag {
+      color: #ffffff;
+      font-family: 'Great Vibes', cursive;
+      font-size: 26px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      z-index: 3;
+      margin-top: 60px;
+    }
+
+    .open-hint {
+      margin-top: 25px;
+      color: var(--pink-soft);
+      font-size: 15px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-shadow: 0 0 8px rgba(248, 187, 208, 0.7);
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ESTILOS DE LA CARTA Y PERGAMINOS */
+    .letter-card {
+      display: none;
+      width: 100%;
+      background: var(--parchment);
+      border-radius: 18px;
+      padding: 30px 24px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 35px rgba(233, 30, 99, 0.35);
+      border: 3px double var(--pink-light);
+      position: relative;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95) translateY(15px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .letter-frame {
+      border: 1px dashed rgba(233, 30, 99, 0.4);
+      padding: 20px 16px;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    /* ICONOS Y ELEMENTOS HARRY POTTER */
+    .hp-header-decor {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .snitch-icon {
+      font-size: 32px;
+      display: inline-block;
+      filter: drop-shadow(0 0 8px #f9e79f);
+      animation: floatSnitch 3s ease-in-out infinite;
+    }
+
+    @keyframes floatSnitch {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(6deg); }
+    }
+
+    .houses-banner {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 15px 0 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .house-pill {
+      padding: 4px 10px;
+      border-radius: 15px;
+      color: white;
+      font-size: 11px;
+      letter-spacing: 0.8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .gryffindor { background: linear-gradient(135deg, #d32f2f, #f06292); }
+    .slytherin  { background: linear-gradient(135deg, #2e7d32, #4db6ac); }
+    .ravenclaw  { background: linear-gradient(135deg, #1565c0, #ba68c8); }
+    .hufflepuff { background: linear-gradient(135deg, #f57f17, #f06292); }
+
+    /* TEXTOS */
+    .intro-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px;
+      color: var(--pink-dark);
+      text-align: center;
+      line-height: 1.3;
+      margin: 20px 0;
+      text-shadow: 1px 1px 2px rgba(233, 30, 99, 0.15);
+    }
+
+    .intro-subtitle {
+      font-size: 19px;
+      color: #5d2943;
+      text-align: center;
+      line-height: 1.6;
+      font-weight: 400;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    .letter-body {
+      font-size: 15px;
+      line-height: 1.85;
+      color: #4a2233;
+      text-align: justify;
+    }
+
+    .letter-body p {
+      margin-bottom: 16px;
+      text-indent: 18px;
+    }
+
+    .letter-body p:first-child {
+      text-indent: 0;
+    }
+
+    .drop-cap {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 38px;
+      float: left;
+      line-height: 1;
+      padding-right: 8px;
+      color: var(--pink-primary);
+    }
+
+    /* BOTONES */
+    .magic-btn {
+      background: linear-gradient(135deg, #f06292, #ad1457);
+      color: white;
+      border: none;
+      padding: 13px 26px;
+      border-radius: 25px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 22px auto 0;
+      box-shadow: 0 5px 18px rgba(233, 30, 99, 0.4), 0 0 10px rgba(249, 231, 159, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .magic-btn:active {
+      transform: scale(0.97);
+    }
+
+    .page-indicator {
+      text-align: center;
+      font-size: 12px;
+      color: var(--pink-dark);
+      margin-top: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="sparkles"></canvas>
+
+  <div class="container">
+    <!-- ESCENA 1: SOBRE MÁGICO -->
+    <div id="scene-envelope" onclick="openEnvelope()">
+      <div class="envelope">
+        <div class="envelope-flap" id="flap"></div>
+        <div class="seal">H</div>
+        <div class="envelope-tag">Para: Ashley 🪄💌</div>
+      </div>
+      <div class="open-hint">✨ Toca para romper el sello ✨</div>
+    </div>
+
+    <!-- ESCENA 2: INTRODUCCIÓN -->
+    <div id="scene-intro" class="letter-card">
+      <div class="letter-frame">
+        <div class="hp-header-decor">
+          <div class="snitch-icon">⚡🪄</div>
+        </div>
+        <h1 class="intro-title">Querida Ashley,</h1>
+        <p class="intro-subtitle">“Me dijiste que escribiera algo memorable así que…”</p>
+        <div class="houses-banner">
+          <span class="house-pill gryffindor">🦁 Valentía</span>
+          <span class="house-pill ravenclaw">🦅 Talento</span>
+          <span class="house-pill slytherin">🐍 Grandeza</span>
+          <span class="house-pill hufflepuff">🦡 Lealtad</span>
+        </div>
+        <button class="magic-btn" onclick="goToPage(1)">
+          Leer carta completa ✨📜
+        </button>
+      </div>
+    </div>
+
+    <!-- ESCENA 3: CARTA PÁGINA 1 -->
+    <div id="scene-page1" class="letter-card">
+      <div class="letter-frame">
+        <div class="hp-header-decor">
+          <span class="snitch-icon">✨ ⚯͛ ✨</span>
+        </div>
+        <div class="letter-body">
+          <p><span class="drop-cap">N</span>o sé bien por dónde empezar, porque escribir esto significa hacer real algo que todavía me cuesta asimilar. Cuando miro hacia atrás y me acuerdo de nosotras en primer semestre, tan llenas de dudas, tratando de entender el ritmo de la carrera y buscando nuestro lugar, criticando a la gente juntas jaja, nunca me imaginé la magnitud del regalo que la vida me estaba dando al ponerte en mi camino. Hoy estamos en séptimo, mirando ya de cerca el final, y el mayor privilegio de todos estos años no ha sido solo avanzar en la carrera, sino haberlo hecho junto a una gran amiga como tú.</p>
+          <p>Compartir clases ya era especial, pero compartir el trabajo lo llevó a otro nivel. En poco tiempo convertimos ese espacio en nuestra casa literalmente. La rutina, que para cualquiera podría ser pesada o agotadora, nosotras la hallamos más amena. Estar juntas casi todo el día, coincidir a la hora de comer, desahogarnos de lo que salía mal, chismear de todo cuando el cansancio ya nos ganaba y sostenernos cuando sentíamos que no podíamos más… todo eso se volvió parte de mi día a día. Saber que bastaba con ir al baño y verte ahí jajajja, para no sentirme sola es algo que no tiene precio, y te prometo que el trabajo jamás se va a sentir igual sin ti, sin tu amistad cerca.</p>
+        </div>
+        <div class="page-indicator">Página 1 de 2</div>
+        <button class="magic-btn" onclick="goToPage(2)">
+          Continuar leyendo 💖🪄
+        </button>
+      </div>
+    </div>
+
+    <!-- ESCENA 4: CARTA PÁGINA 2 -->
+    <div id="scene-page2" class="letter-card">
+      <div class="letter-frame">
+        <div class="hp-header-decor">
+          <span class="snitch-icon">🏰✨</span>
+        </div>
+        <div class="letter-body">
+          <p>Sin embargo, por encima de cualquier nostalgia o egoísmo de querer tenerte siempre cerquita, hay algo infinitamente más grande: el orgullo y la felicidad tan profunda que siento por ti. Te he visto de cerca, conozco tu entrega, las veces que te has esforzado el doble, tus ganas inmensas de superarte y el amor que le pones a lo que haces. Ver que tomaste esta decisión, que diste este paso valiente para ir tras lo que te gusta, me emociona. Si alguien merece que se le abran todas las puertas, que reconozcan su talento y que alcance cada meta que se proponga, eres tú. Te mereces un lugar donde crezcas como la profesional brillante que eres, donde aprendas cosas nuevas y, sobre todo, donde seas inmensamente feliz.</p>
+          <p>Nuestros caminos laborales hoy toman rumbos diferentes, pero lo que construimos desde el día uno en la facu y fuera de ella no cambia para nada. Nuestra amistad no depende de compartir un escritorio ni una oficina; esa ya está para siempre quieras o no, en cada recuerdo, en cada plática y en todo lo que hemos crecido juntas.</p>
+          <p>Vete tranquila, vete con la frente en alto y con toda la seguridad de que estás donde tienes que estar para cumplir tus sueños. Aquí me quedo yo, deseándote todo lo mejor, celebrando cada logro que venga y recordándote siempre lo increíble e inteligente que eres. Las comidas tal vez ya no sean a la misma hora todos los días, pero los fines de semana, los mensajes para ponernos al corriente y el cariño no nos los quita nadie. Gracias por haber sido mi compañera y por seguir siendo mi amiga. Ve y brilla con todo, que te mereces el universo entero.</p>
+          <p style="text-align: right; font-weight: 600; color: var(--pink-dark); margin-top: 15px;">
+            Te quiero con todo mi corazón 💕🫰🏼
+          </p>
+        </div>
+        <div class="page-indicator">Página 2 de 2</div>
+        <button class="magic-btn" onclick="goToPage(1)" style="background: transparent; color: var(--pink-dark); box-shadow: none; border: 1px solid var(--pink-light);">
+          ↺ Volver a la página anterior
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Transiciones entre escenas
+    function openEnvelope() {
+      document.getElementById('flap').style.transform = 'rotateX(180deg)';
+      setTimeout(() => {
+        document.getElementById('scene-envelope').style.display = 'none';
+        document.getElementById('scene-intro').style.display = 'block';
+      }, 500);
+    }
+
+    function goToPage(page) {
+      document.getElementById('scene-intro').style.display = 'none';
+      document.getElementById('scene-page1').style.display = 'none';
+      document.getElementById('scene-page2').style.display = 'none';
+
+      if (page === 1) {
+        document.getElementById('scene-page1').style.display = 'block';
+      } else if (page === 2) {
+        document.getElementById('scene-page2').style.display = 'block';
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Partículas de destellos mágicos en canvas
+    const canvas = document.getElementById('sparkles');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const colors = ['#f8bbd0', '#f48fb1', '#f9e79f', '#ffffff', '#e91e63'];
+
+    for (let i = 0; i < 45; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 2.5 + 1,
+        speedX: (Math.random() - 0.5) * 0.6,
+        speedY: (Math.random() - 0.5) * 0.6 - 0.2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        alpha: Math.random() * 0.8 + 0.2
+      });
+    }
+
+    function renderSparkles() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      requestAnimationFrame(renderSparkles);
+    }
+    renderSparkles();
+  </script>
+</body>
+</html>
